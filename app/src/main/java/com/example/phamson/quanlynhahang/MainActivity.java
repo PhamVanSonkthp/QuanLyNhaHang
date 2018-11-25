@@ -241,9 +241,10 @@ public class MainActivity extends AppCompatActivity {
         grBanAn = findViewById(R.id.grBanAn);
 
         dsBanan = new ArrayList<>();
-        dsBanan.add(new DanhSachBanAn("Bàn 1"));
-        dsBanan.add(new DanhSachBanAn("Bàn 2"));
-        dsBanan.add(new DanhSachBanAn("Bàn 3"));
+
+        for (int i = 1 ; i <= 50 ; i++){
+            dsBanan.add(new DanhSachBanAn("Bàn "+i));
+        }
 
         dsThucAn = new ArrayList<>();
         //dsThucAn.add(new DanhSachThucAn(R.drawable.food , "Meo Luoc" , 1));

@@ -1,5 +1,6 @@
 package com.example.phamson.quanlynhahang;
 
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,8 @@ public class TinhTienActivity extends AppCompatActivity{
     RecyclerView.Adapter lvThemMonAdapter;
     ArrayList<DanhSachThucAn> mDataset;
     Button btnDonBan , btnDonTatCa;
+    int varRun;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,16 @@ public class TinhTienActivity extends AppCompatActivity{
     }
 
     private void Events() {
+
+        btnDonTatCa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                progressDialog.setTitle("Đang Tiến Hành");
+                progressDialog.setMessage("Dọn Tất Cả Các Bàn");
+                progressDialog.setCancelable(false);
+                DonTatCa(1);
+            }
+        });
 
         btnDonBan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +146,35 @@ public class TinhTienActivity extends AppCompatActivity{
 
     }
 
+    private void DonTatCa(int i) {
+        varRun = 0;
+        final int k = i +1;
+        progressDialog.setMessage("Số Bàn Đã Dọn = " + i);
+        progressDialog.dismiss();
+        progressDialog.show();
+        if (i == 51) {
+            progressDialog.dismiss();
+            return;
+        }
+            mData.child("ID").child(ID_PHONG).child("Bàn "+i).child("DanhSachThucAn").setValue("null", new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                    if(++varRun == 2){
+                        DonTatCa(k);
+                    }
+                }
+            });
+            mData.child("ID").child(ID_PHONG).child("Bàn "+i).child("NumberFood").setValue("0", new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                    if(++varRun == 2){
+                        DonTatCa(k);
+                    }
+                }
+            });
+
+    }
+
     private void AnhXa() {
         Bundle bundle = getIntent().getExtras();
         if(bundle!= null){
@@ -165,6 +207,8 @@ public class TinhTienActivity extends AppCompatActivity{
         dsThucAn = new ArrayList<>();
         adapterThucAn = new AdapterThucAn(TinhTienActivity.this , R.layout.custom_thuc_an , dsThucAn);
         lvThucAn.setAdapter(adapterThucAn);
+        progressDialog = new ProgressDialog(TinhTienActivity.this);
+
     }
     String NumberToWords(long number)
     {
