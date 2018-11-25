@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +17,6 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -154,6 +152,7 @@ public class TinhTienActivity extends AppCompatActivity{
         progressDialog.show();
         if (i == 51) {
             progressDialog.dismiss();
+            Toast.makeText(getApplicationContext() , "Đã Dọn Tất Cả Bàn !" , Toast.LENGTH_SHORT).show();
             return;
         }
             mData.child("ID").child(ID_PHONG).child("Bàn "+i).child("DanhSachThucAn").setValue("null", new DatabaseReference.CompletionListener() {
