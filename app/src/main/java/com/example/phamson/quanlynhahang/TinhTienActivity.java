@@ -83,7 +83,7 @@ public class TinhTienActivity extends AppCompatActivity{
 
                     if (thucAn.name.equals(dsThucAn.get(i).getName())){
 
-                        dsThucAn.add(i+1,new DanhSachThucAn(thucAn.hinhAnh , thucAn.name , (Integer.parseInt(thucAn.number) + Integer.parseInt(dsThucAn.get(i).number )) +"", thucAn.price));
+                        dsThucAn.add(i+1,new DanhSachThucAn(thucAn.hinhAnh , thucAn.name , (Integer.parseInt(thucAn.number) + Integer.parseInt(dsThucAn.get(i).number )) +"", thucAn.price , thucAn.banMay));
                         dsThucAn.remove(i);
                         adapterThucAn.notifyDataSetChanged();
                         //tong += Long.parseLong(dsThucAn.get(i).price) * Integer.parseInt(dsThucAn.get(i).number);
@@ -97,7 +97,7 @@ public class TinhTienActivity extends AppCompatActivity{
                     }
                     //tong += Long.parseLong(dsThucAn.get(i).price) * Integer.parseInt(dsThucAn.get(i).number);
                 }
-                dsThucAn.add(new DanhSachThucAn(thucAn.hinhAnh , thucAn.name , thucAn.number , thucAn.price));
+                dsThucAn.add(new DanhSachThucAn(thucAn.hinhAnh , thucAn.name , thucAn.number , thucAn.price , thucAn.banMay));
                 //tong += Long.parseLong(dsThucAn.get(i).price) * Integer.parseInt(dsThucAn.get(i).number);
                 adapterThucAn.notifyDataSetChanged();
                 for(i = 0 ; i <dsThucAn.size() ; i++){
@@ -138,12 +138,14 @@ public class TinhTienActivity extends AppCompatActivity{
         if(bundle!= null){
             banAn = bundle.getString("BanAn");
         }
+        txtBanTinhTien = findViewById(R.id.txtBanTinhTien);
+        txtBanTinhTien.setText(banAn);
         mDataset = new ArrayList<>();
 
-        mDataset.add(new DanhSachThucAn(R.drawable.pig+"" , "Thịt Heo" , "1" , "250000"));
-        mDataset.add(new DanhSachThucAn(R.drawable.chicken+"" , "Thịt Gà Hầm" , "1" , "280000"));
-        mDataset.add(new DanhSachThucAn(R.drawable.dog+"" , "Thịt Chó Thui" , "1" , "550000"));
-        mDataset.add(new DanhSachThucAn(R.drawable.flower+"" , "Hoa Tươi" , "1" , "33000"));
+        mDataset.add(new DanhSachThucAn(R.drawable.pig+"" , "Thịt Heo" , "1" , "250000" , txtBanTinhTien.getText().toString()));
+        mDataset.add(new DanhSachThucAn(R.drawable.chicken+"" , "Thịt Gà Hầm" , "1" , "280000", txtBanTinhTien.getText().toString()));
+        mDataset.add(new DanhSachThucAn(R.drawable.dog+"" , "Thịt Chó Thui" , "1" , "550000", txtBanTinhTien.getText().toString()));
+        mDataset.add(new DanhSachThucAn(R.drawable.flower+"" , "Hoa Tươi" , "1" , "33000", txtBanTinhTien.getText().toString()));
         lvThemMon = findViewById(R.id.lvThemMon);
         lvThemMon.setHasFixedSize(true);
         lvThemMonManager = new LinearLayoutManager(this , LinearLayoutManager.HORIZONTAL , false);
@@ -152,10 +154,9 @@ public class TinhTienActivity extends AppCompatActivity{
         lvThemMonAdapter = new MainAdapter(mDataset , this);
 
         lvThemMon.setAdapter(lvThemMonAdapter);
-        txtBanTinhTien = findViewById(R.id.txtBanTinhTien);
         txtBanTinhTienChu = findViewById(R.id.txtBanTinhTienChu);
         txtBanTinhTienSo = findViewById(R.id.txtBanTinhTienSo);
-        txtBanTinhTien.setText(banAn);
+
         btnDonBan = findViewById(R.id.btnDonBan);
         btnDonTatCa = findViewById(R.id.btnDonTatCa);
 

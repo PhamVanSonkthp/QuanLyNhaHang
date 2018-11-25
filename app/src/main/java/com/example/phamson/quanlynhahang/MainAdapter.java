@@ -43,7 +43,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         viewHolder.ln.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DanhSachThucAn thucAn = new DanhSachThucAn(mDataset.get(i).getHinhAnh() , mDataset.get(i).getName() , mDataset.get(i).getNumber(), mDataset.get(i).getPrice() );
+                DanhSachThucAn thucAn = new DanhSachThucAn(mDataset.get(i).getHinhAnh() , mDataset.get(i).getName() , mDataset.get(i).getNumber(), mDataset.get(i).getPrice()  , mDataset.get(i).banMay);
                 mData.child("ID").child(ID_PHONG).child(banAn).child("DanhSachThucAn").push().setValue(thucAn);
                 mData.child("ID").child(ID_PHONG).child(banAn).child("NumberFood").setValue("1");
             }

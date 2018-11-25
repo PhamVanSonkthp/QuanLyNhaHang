@@ -59,21 +59,6 @@ public class MainActivity extends AppCompatActivity {
             ID_PHONG = pre.getString("myData","");
             AnhXa();
             Events();
-
-
-            grBanAn.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    TinhTien(dsBanan.get(position).getTenBan());
-                    if(txtChonBan.length() > 10){
-                        txtChonBan.setText(dsBanan.get(position).getTenBan());
-                    }
-                    Intent intent = new Intent(MainActivity.this , TinhTienActivity.class);
-                    intent.putExtra("BanAn" , txtChonBan.getText().toString());
-                    startActivity(intent);
-                    return false;
-                }
-            });
         }
 
 
@@ -150,75 +135,96 @@ public class MainActivity extends AppCompatActivity {
 
                 TinhTien(dsBanan.get(position).getTenBan());
                 if (varChec != position){
+
                     varChec = position;
                     dsThucAn.clear();
                     txtTienChu.setText("Không");
                     txtTienSo.setText("0");
-                    mData.child("ID").child(ID_PHONG).child(txtChonBan.getText().toString()).child("DanhSachThucAn").addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                            ThucAn thucAn = dataSnapshot.getValue(ThucAn.class);
-                            int i;
-                            long tong = 0;
-                            for ( i = 0 ; i < dsThucAn.size() ; i++){
+                        mData.child("ID").child(ID_PHONG).child(txtChonBan.getText().toString()).child("DanhSachThucAn").addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                                if (thucAn.name.equals(dsThucAn.get(i).getName())){
+                                ThucAn thucAn = dataSnapshot.getValue(ThucAn.class);
+                                if (thucAn.banMay.equals(txtChonBan.getText().toString())){
+                                    int i;
+                                    long tong = 0;
+                                    for ( i = 0 ; i < dsThucAn.size() ; i++){
 
-                                    dsThucAn.add(i+1,new DanhSachThucAn(thucAn.hinhAnh , thucAn.name , (Integer.parseInt(thucAn.number) + Integer.parseInt(dsThucAn.get(i).number )) +"", thucAn.price));
-                                    dsThucAn.remove(i);
-                                    adapterThucAn.notifyDataSetChanged();
+                                        if (thucAn.name.equals(dsThucAn.get(i).getName())){
+
+                                            dsThucAn.add(i+1,new DanhSachThucAn(thucAn.hinhAnh , thucAn.name , (Integer.parseInt(thucAn.number) + Integer.parseInt(dsThucAn.get(i).number )) +"", thucAn.price , thucAn.banMay));
+                                            dsThucAn.remove(i);
+                                            adapterThucAn.notifyDataSetChanged();
+                                            //tong += Long.parseLong(dsThucAn.get(i).price) * Integer.parseInt(dsThucAn.get(i).number);
+                                            for(i = 0 ; i <dsThucAn.size() ; i++){
+                                                tong += Long.parseLong(dsThucAn.get(i).price) * Integer.parseInt(dsThucAn.get(i).number);
+                                            }
+                                            txtTienChu.setText(NumberToWords(tong));
+                                            txtTienSo.setText(tong+"");
+                                            return;
+                                            //break;
+                                        }
+                                        //tong += Long.parseLong(dsThucAn.get(i).price) * Integer.parseInt(dsThucAn.get(i).number);
+                                    }
+                                    dsThucAn.add(new DanhSachThucAn(thucAn.hinhAnh , thucAn.name , thucAn.number , thucAn.price , thucAn.banMay));
                                     //tong += Long.parseLong(dsThucAn.get(i).price) * Integer.parseInt(dsThucAn.get(i).number);
+                                    adapterThucAn.notifyDataSetChanged();
                                     for(i = 0 ; i <dsThucAn.size() ; i++){
                                         tong += Long.parseLong(dsThucAn.get(i).price) * Integer.parseInt(dsThucAn.get(i).number);
                                     }
                                     txtTienChu.setText(NumberToWords(tong));
                                     txtTienSo.setText(tong+"");
-                                    return;
                                 }
-                                //tong += Long.parseLong(dsThucAn.get(i).price) * Integer.parseInt(dsThucAn.get(i).number);
+
+
                             }
-                            dsThucAn.add(new DanhSachThucAn(thucAn.hinhAnh , thucAn.name , thucAn.number , thucAn.price));
-                            //tong += Long.parseLong(dsThucAn.get(i).price) * Integer.parseInt(dsThucAn.get(i).number);
-                            adapterThucAn.notifyDataSetChanged();
-                            for(i = 0 ; i <dsThucAn.size() ; i++){
-                                tong += Long.parseLong(dsThucAn.get(i).price) * Integer.parseInt(dsThucAn.get(i).number);
+
+                            @Override
+                            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
                             }
-                            txtTienChu.setText(NumberToWords(tong));
-                            txtTienSo.setText(tong+"");
 
-                        }
+                            @Override
+                            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                                txtTienSo.setText("0");
+                                txtTienChu.setText("Không");
+                                txtChonBan.setText("Không Bàn Nào Được Chọn");
+                                dsThucAn.clear();
+                                adapterThucAn.notifyDataSetChanged();
+                                varChec =-1;
+                            }
 
-                        @Override
-                        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                            @Override
+                            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                        }
+                            }
 
-                        @Override
-                        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                            txtTienSo.setText("0");
-                            txtTienChu.setText("Không");
-                            txtChonBan.setText("Không Bàn Nào Được Chọn");
-                            dsThucAn.clear();
-                            adapterThucAn.notifyDataSetChanged();
-                            varChec =-1;
-                        }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        @Override
-                        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                            }
+                        });
 
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        }
-                    });
                 }
 
             }
         });
 
-
+        grBanAn.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                TinhTien(dsBanan.get(position).getTenBan());
+                if(txtChonBan.length() > 10){
+                    txtChonBan.setText(dsBanan.get(position).getTenBan());
+                }
+                Intent intent = new Intent(MainActivity.this , TinhTienActivity.class);
+                intent.putExtra("BanAn" , txtChonBan.getText().toString());
+                startActivity(intent);
+                return false;
+            }
+        });
 
     }
 
@@ -246,6 +252,9 @@ public class MainActivity extends AppCompatActivity {
         grBanAn.setAdapter(adapterBanAn);
         adapterThucAn = new AdapterThucAn(MainActivity.this , R.layout.custom_thuc_an , dsThucAn);
         lvThucAn.setAdapter(adapterThucAn);
+
+
+
 
     }
 

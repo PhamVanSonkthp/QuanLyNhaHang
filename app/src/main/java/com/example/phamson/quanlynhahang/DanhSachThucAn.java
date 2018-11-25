@@ -7,15 +7,17 @@ public class DanhSachThucAn implements Serializable {
     String name;
     String number;
     String price;
+    String banMay;
 
     public DanhSachThucAn() {
     }
 
-    public DanhSachThucAn(String hinhAnh, String name, String number, String price) {
+    public DanhSachThucAn(String hinhAnh, String name, String number, String price , String banMay) {
         this.hinhAnh = hinhAnh;
         this.name = name;
         this.number = number;
         this.price = price;
+        this.banMay = banMay;
     }
 
     public String getHinhAnh() {
@@ -48,5 +50,13 @@ public class DanhSachThucAn implements Serializable {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getBanMay() {
+        return banMay;
+    }
+
+    public void setBanMay(String banMay) {
+        this.banMay = banMay;
     }
 }
