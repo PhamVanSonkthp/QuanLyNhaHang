@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:inputType="number"
+        android:id="@+id/edtDialog_idPhong"
+        android:gravity="center"
+        android:hint="Mời Bạn Nhập ID Phòng"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnDialog_IDPhong"
+        android:layout_gravity="center"
+        android:text="Đồng Ý"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

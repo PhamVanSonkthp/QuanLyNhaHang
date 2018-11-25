@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "97748625978",
+    "firebase_url": "https://endleove-d736d.firebaseio.com",
+    "project_id": "endleove-d736d",
+    "storage_bucket": "endleove-d736d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:97748625978:android:513064d5f79731b3",
+        "android_client_info": {
+          "package_name": "com.bontuky.bontuky.endlesslove"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "97748625978-q0roqunj6bmfqnaf6botia18a9nr627v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1BJZY_i7UjXEbgVesDCYTz-4ORvu18i0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:97748625978:android:b8f499cf5d65ee99",
+        "android_client_info": {
+          "package_name": "com.example.phamson.quanlynhahang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "97748625978-q0roqunj6bmfqnaf6botia18a9nr627v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1BJZY_i7UjXEbgVesDCYTz-4ORvu18i0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
