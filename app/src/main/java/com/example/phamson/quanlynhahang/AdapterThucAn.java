@@ -26,14 +26,18 @@ public class AdapterThucAn extends ArrayAdapter {
         LayoutInflater inflater = this.context.getLayoutInflater();
         View row = inflater.inflate(this.resource,null);
 
+        DanhSachThucAn danhSachThucAn = this.objects.get(position);
         TextView txtThucAn = row.findViewById(R.id.txtMonAn);
         TextView txtSoLuong = row.findViewById(R.id.txtSoLuong);
         TextView txtGia = row.findViewById(R.id.txtGia);
         ImageView imgThucAn = row.findViewById(R.id.imgMonAn);
 
-        DanhSachThucAn danhSachThucAn = this.objects.get(position);
+
         txtThucAn.setText(danhSachThucAn.getName());
         txtSoLuong.setText(danhSachThucAn.getNumber() +"");
+
+
+
         txtGia.setText(danhSachThucAn.getPrice()+"");
         imgThucAn.setImageResource(Integer.parseInt(danhSachThucAn.getHinhAnh()));
 

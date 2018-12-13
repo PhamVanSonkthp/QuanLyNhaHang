@@ -18,7 +18,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
+import static com.example.phamson.quanlynhahang.MainActivity.listCheckBanAn;
+
 public class AdapterBanAn extends ArrayAdapter<DanhSachBanAn> {
+
+    ;
     DatabaseReference mData;
 
     Activity context;
